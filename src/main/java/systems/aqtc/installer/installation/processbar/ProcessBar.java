@@ -18,6 +18,15 @@ public class ProcessBar {
   public void nextStep(String stepName) {
     this.currentStep++;
     this.currentStepName = stepName;
+
+    this.display();
+  }
+
+  public void nextStep(String stepName, int step) {
+    this.currentStep = step;
+    this.currentStepName = stepName;
+
+    this.display();
   }
 
   public void display() {
@@ -28,16 +37,12 @@ public class ProcessBar {
 
     boolean lengthLimited = this.maxLength != -1;
     int lineLength = !lengthLimited ? (this.showPercentage ? 101 : this.totalSteps) : this.maxLength;
-    double printEvery = this.totalSteps / (double) lineLength;
+    int currentLength = (int) (((double) this.currentStep / (double) this.totalSteps) * lineLength);
 
-    for (int i = 0; i < lineLength; i++) {
-      if ((int) (i % printEvery) != 0) {
-        continue;
-      }
-
-      if (i < this.currentStep) {
+    for (int i = 0; i < this.maxLength; i++) {
+      if (i < currentLength) {
         System.out.print("=");
-      } else if (i == this.currentStep) {
+      } else if (i == currentLength) {
         System.out.print(">");
       } else {
         System.out.print(" ");

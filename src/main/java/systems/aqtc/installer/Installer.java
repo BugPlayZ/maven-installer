@@ -9,7 +9,9 @@ import systems.aqtc.installer.installation.steps.LicenseAgreementStep;
 
 @Getter
 public class Installer {
+
   public static final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool();
+  public static final String BASE_URL = "https://dlcdn.apache.org/maven/maven-3/{VERSION}/binaries/apache-maven-{VERSION}-bin.zip";
 
   @Getter
   private static Installer instance;
