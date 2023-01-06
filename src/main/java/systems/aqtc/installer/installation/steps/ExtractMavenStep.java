@@ -31,6 +31,7 @@ public class ExtractMavenStep implements IInstallationStep {
     }
 
     System.out.println("Maven has been extracted to " + input + "!");
+    this.file.delete();
     Installer.getInstance().triggerStep(new UpdateSystemVariablesStep(input));
   }
 }
