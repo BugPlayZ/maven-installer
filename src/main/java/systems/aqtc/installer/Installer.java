@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 import lombok.Getter;
 import systems.aqtc.installer.installation.IInstallationStep;
 import systems.aqtc.installer.installation.steps.LicenseAgreementStep;
+import systems.aqtc.installer.utils.WindowsUtils;
 
 @Getter
 public class Installer {
@@ -25,6 +26,12 @@ public class Installer {
         + "| | | |     |  |  |   __| | | |\n"
         + "|_|_|_|__|__|\\___/|_____|_|___|\n"
         + "                               ");
+
+    if (!WindowsUtils.isWindows()) {
+      System.out.println("This installer only supports Windows!");
+      return;
+    }
+
     this.triggerStep(new LicenseAgreementStep());
   }
 

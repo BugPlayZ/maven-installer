@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.zip.ZipFile;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
+import systems.aqtc.installer.Installer;
 import systems.aqtc.installer.installation.IInstallationStep;
 import systems.aqtc.installer.installation.processes.ExtractFileProcess;
 
@@ -25,6 +26,11 @@ public class ExtractMavenStep implements IInstallationStep {
     }
 
     System.out.println("Extracting Maven to " + input + "...");
-    new ExtractFileProcess(new ZipFile(file), input);
+    try (ZipFile zipFile = new ZipFile(file)) {
+      new ExtractFileProcess(zipFile, input);
+    }
+
+    System.out.println("Maven has been extracted to " + input + "!");
+    Installer.getInstance().triggerStep(new UpdateSystemVariablesStep(input));
   }
 }
